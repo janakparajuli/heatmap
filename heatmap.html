@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Points as a heatmap</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.3.3/dist/esri-leaflet.js" integrity="sha512-cMQ5e58BDuu1pr9BQ/eGRn6HaR6Olh0ofcHFWe5XesdCITVuSBiBZZbhCijBe5ya238f/zMMRYIMIIg1jxv4sQ==" crossorigin=""></script>
+
+
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 90%;
+            width: 90%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Include Leaflet.heat from CDN -->
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+
+    <!-- Load Heatmap Feature Layer from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-heatmap@2.0.0"></script>
+
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map'); //.setView([40, -5], 6);
+        map.locate({
+            setView: true
+        });
+        L.esri.basemapLayer('DarkGray').addTo(map);
+
+        // new constructor syntax at 2.0.0
+        L.esri.Heat.featureLayer({
+            //  url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/CommunityAddressing/MapServer/0',
+            // url: 'https://services1.arcgis.com/k8WRSCmxGgCwZufI/arcgis/rest/services/Facility_V2/FeatureServer?token=P8zOueegNW8j0AyjT2cKNHXFiPiZJFKhEN2O4KIfKW7Y9F9AJ6pm_qRsKgGb9m6GJOo8cPFvZ7LhYQ_0sKQBleMT8mQy4U6uqTJAeaKzA-hsYODuXJ4RLCL1AYAKjmMFbnLhiP39kVHZCPvm84sTzKcpX2IQ12UzfD18OkIkidXygMt3wQLXB6NqjBFdDh0NlQ9vdn7cn2rHt9nEJGJ8IS93xxzBVU8c4seCAtDl3XZcakhFWINNVMRPnhoeE9T7',
+            url: 'https://services1.arcgis.com/k8WRSCmxGgCwZufI/arcgis/rest/services/Graffiti/FeatureServer/0?token=8LEKgbQVPm6bTddR-1l08wFytueMV5wjC83tZYJfFswakbyggJZTszAnIJsUhIQg3UBNdZ5T3X-_uyV88i_R8_V_DSS6qN1tzDEIcshewuc6ODh-GNcRXmvaYfkSpqawGIqsQdKf7Co-f3o3yRoHHH90hr-8NAL6qhGJLDR6jCfy-LEKGMpNo0UG1j6uOXtZDhHe5KNTiXMrR69M5vWsMWyJnRtNVkvSn3n5X6yhTaUMLbUE98Combg6qtfiVHXP&fbclid=IwAR3lV2VrJKajLjcMYJbwdiHY-VEl1_1gzlKGNtBIgDSkhDRO6nQUw_Zk7hg',
+            radius: 30,
+            gradient: {
+                0.2: '#ffffb2',
+                0.4: '#fd8d3c',
+                0.6: '#fd8d3c',
+                0.8: '#f03b20',
+                1: '#bd0026'
+            },
+        }).addTo(map);
+        L.esri.basemapLayer('ImageryLabels').addTo(map);
+    </script>
+
+</body>
+
+</html>
